@@ -49,7 +49,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
    ```bash
    git clone https://github.com/Hmidoukourouk/WDLS.git
-   cd WDLS
+   cd .\WDLS
    ```
 
 2. **Installer les dépendances** :
