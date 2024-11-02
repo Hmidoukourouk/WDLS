@@ -1,0 +1,19 @@
+{
+    "languageLabel": "Langue",
+    "keyboardIconLabel": "Définir l'icône de la disposition du clavier",
+    "keyboardTopPlaceholder": "Entrez celui du haut (ex: FRA)",
+    "keyboardBottomPlaceholder": "Entrez celui du bas (ex: FR)",
+    "keyboardTopValue": "FRA",
+    "keyboardBottomValue": "FR",
+    "systemAccentColor": "Couleur d'accentuation système trouvée",
+    "setName": "Définir le nom",
+    "usernamePlaceholder": "Entrez le nom",
+    "loadingName": "Nom en cours de récupération, veuillez patienter...",
+    "nextButton": "Expertiser la zone",
+    "dataSaveLocation": "Sauvegarde des données ici :",
+
+    "welcome": "Bienvenue",
+    "enterPassword": "Code confidentiel",
+    "forgotPassword": "J'ai oublié mon code confidentiel",
+    "connectionOptions": "Options de connexion"
+}

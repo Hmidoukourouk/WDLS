@@ -21,40 +21,43 @@
             <div class="loading-circle circle-4"></div>
             <div class="loading-circle circle-5"></div>
         </div>
-        <div id="Bienvenue">Bienvenue</div>
-
+        <div class="marginV"></div>
+        <div id="Bienvenue" data-translate-key="welcome">Bienvenue</div>
     </div>
     <div id="centreur" draggable="false">
         <div id="imgContainer">
             <div id="img" draggable="false"></div>
         </div>
         <div id="separateurimgtext"></div>
-        <div id="username" class="roboto"></div>
+        <div id="username" class="roboto">Macron Levrai</div>
         <div id="separateurtextpass"></div>
-        <div id="centreurmdp">
-            <input type="password" id="userInput" placeholder="Code confidentiel">
-            <button id="eyeButton" class="eyeButtonBasicBackground">
-                <svg width="14" height="10" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path id="eyeButtonIconFill"
-                        d="M8 5C8 6.10457 7.10457 7 6 7C4.89543 7 4 6.10457 4 5C4 3.89543 4.89543 3 6 3C7.10457 3 8 3.89543 8 5ZM4.90633 5C4.90633 5.60402 5.39598 6.09367 6 6.09367C6.60402 6.09367 7.09367 5.60402 7.09367 5C7.09367 4.39598 6.60402 3.90633 6 3.90633C5.39598 3.90633 4.90633 4.39598 4.90633 5Z"
-                        fill="white " />
-                    <path id="eyeButtonIconPath" d="M1 4.13832C2 -0.451886 10 -0.451852 11 4.13832" stroke="white"
-                        stroke-width="0.769231" />
-                </svg>
-            </button>
-            <button id="nextBtn">
-                <svg id="arrowSvg" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M0.5 7H0V8H0.5V7ZM13.5 7.5L13.8536 7.85355L14.2071 7.5L13.8536 7.14645L13.5 7.5ZM0.5 8H13.5V7H0.5V8ZM13.8536 7.14645L7.35355 0.646447L6.64645 1.35355L13.1464 7.85355L13.8536 7.14645ZM13.1464 7.14645L6.64645 13.6464L7.35355 14.3536L13.8536 7.85355L13.1464 7.14645Z"
-                        fill="white" />
-                </svg>
-            </button>
-        </div>
-        <div id="separateurUnderPass"></div>
-        <div class="smallTxt">J'ai oublié mon code confidentiel</div>
-        <div id="separateurUnderText"></div>
-        <div class="smallTxt">Options de connexion</div>
 
+        <div id="botomPart">
+            <div id="centreurmdp">
+                <input type="password" id="userInput" data-translate-key="enterPassword"
+                    placeholder="Code confidentiel">
+                <button id="eyeButton" class="eyeButtonBasicBackground">
+                    <svg width="14" height="10" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path id="eyeButtonIconFill"
+                            d="M8 5C8 6.10457 7.10457 7 6 7C4.89543 7 4 6.10457 4 5C4 3.89543 4.89543 3 6 3C7.10457 3 8 3.89543 8 5ZM4.90633 5C4.90633 5.60402 5.39598 6.09367 6 6.09367C6.60402 6.09367 7.09367 5.60402 7.09367 5C7.09367 4.39598 6.60402 3.90633 6 3.90633C5.39598 3.90633 4.90633 4.39598 4.90633 5Z"
+                            fill="white " />
+                        <path id="eyeButtonIconPath" d="M1 4.13832C2 -0.451886 10 -0.451852 11 4.13832" stroke="white"
+                            stroke-width="0.769231" />
+                    </svg>
+                </button>
+                <button id="nextBtn">
+                    <svg id="arrowSvg" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M0.5 7H0V8H0.5V7ZM13.5 7.5L13.8536 7.85355L14.2071 7.5L13.8536 7.14645L13.5 7.5ZM0.5 8H13.5V7H0.5V8ZM13.8536 7.14645L7.35355 0.646447L6.64645 1.35355L13.1464 7.85355L13.8536 7.14645ZM13.1464 7.14645L6.64645 13.6464L7.35355 14.3536L13.8536 7.85355L13.1464 7.14645Z"
+                            fill="white" />
+                    </svg>
+                </button>
+            </div>
+            <div id="separateurUnderPass"></div>
+            <div class="smallTxt" data-translate-key="forgotPassword">J'ai oublié mon code confidentiel</div>
+            <div id="separateurUnderText"></div>
+            <div class="smallTxt" data-translate-key="connectionOptions">Options de connexion</div>
+        </div>
 
     </div>
     <div id="botomContainer">

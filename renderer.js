@@ -75,7 +75,7 @@ function fadeOutAndClose() {
 function submitInput() {
     if (hassubmitted === false) {
         document.getElementById("overlay").style.removeProperty("opacity");
-        document.getElementById("centreur").style.opacity = 0;
+        document.getElementById("botomPart").style.opacity = 0;
         const userInput = document.getElementById('userInput').value;
         window.electron.send('get-pass', userInput);
         hassubmitted = true;
@@ -121,45 +121,59 @@ function resetStyles() {
 
 //#endregion
 
+//#region language
+
+async function loadLanguage(lang) {
+    try {
+        const response = await fetch(`./locales/${lang}.json`);
+        const translations = await response.json();
+
+        document.querySelectorAll("[data-translate-key]").forEach(element => {
+            const key = element.getAttribute("data-translate-key");
+            if (translations[key]) {
+                if (element.placeholder !== undefined) {
+                    element.placeholder = translations[key];
+                } else {
+                    element.textContent = translations[key];
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Erreur lors du chargement de la langue :", error);
+    }
+}
+
+//#endregion
+
 //#region set de la data
 
 window.electron.receive('set-data', (data) => {
     if (data.username) {
         document.getElementById('username').innerHTML = `${data.username}`;
-    } else {
-        console.warn('data.username non reçu dans renderer.js');
     }
     if (data.top) {
         document.getElementById('keyboardLangbold').innerHTML = `${data.top}`;
-    } else {
-        console.warn('data.top non reçu dans renderer.js');
     }
     if (data.bottom) {
         document.getElementById('keyboardLang').innerHTML = `${data.bottom}`;
-    } else {
-        console.warn('data.bottom non reçu dans renderer.js');
     }
     if (data.isWifi === true) {
         document.getElementById('connectionCable').style.display = "none";
-    } else {
-        document.getElementById('connectionWifi').style.display = "none";
     }
     if (data.profileImagePath) {
         document.getElementById('img').src = data.profileImagePath;
-    } else {
-        console.warn('data.profileImagePath non reçu dans renderer.js');
     }
     if (data.profileImagebase64) {
         document.getElementById('img').style.backgroundImage = `url("${data.profileImagebase64}")`;
         console.log("bouing");
-    } else {
-        console.log("pas de boing");
     }
     if (data.syscolor) {
         document.documentElement.style.setProperty('--systemColor', data.syscolor);
-    } else {
-        console.log("pas de sys color");
+    }
+    if (data.lang) {
+        loadLanguage(data.lang);
     }
 });
 
 //#endregion
+

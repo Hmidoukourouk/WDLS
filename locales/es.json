@@ -1,0 +1,19 @@
+{
+    "languageLabel": "Idioma",
+    "keyboardIconLabel": "Establecer icono de diseño del teclado",
+    "keyboardTopPlaceholder": "Ingrese el icono superior (por ejemplo, ESP)",
+    "keyboardBottomPlaceholder": "Ingrese el icono inferior (por ejemplo, ES)",
+    "keyboardTopValue": "ESP",
+    "keyboardBottomValue": "ES",
+    "systemAccentColor": "Color de acento del sistema encontrado",
+    "setName": "Establecer nombre",
+    "usernamePlaceholder": "Ingrese el nombre",
+    "loadingName": "Recuperando el nombre, espere un momento...",
+    "nextButton": "GO",
+    "dataSaveLocation": "Datos guardados aquí:",
+
+    "welcome": "Bienvenido",
+    "enterPassword": "Contraseña",
+    "forgotPassword": "Olvidé mi contraseña",
+    "connectionOptions": "Opciones de inicio de sesión"
+}

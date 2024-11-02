@@ -1,7 +1,6 @@
 # KundeskaLockScreenChan
 
 **KundeskaLockScreenChan** est une application Electron conçue pour émuler un lockscreen Windows 10 et récupérer des informations d'utilisateur en sortie sous forme de fichier JSON.
-Fait en un jour.
 
 ## Table des matières
 

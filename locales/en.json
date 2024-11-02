@@ -1,0 +1,19 @@
+{
+    "languageLabel": "Language",
+    "keyboardIconLabel": "Set keyboard layout icon",
+    "keyboardTopPlaceholder": "Enter top icon (e.g., ENG)",
+    "keyboardBottomPlaceholder": "Enter bottom icon (e.g., US)",
+    "keyboardTopValue": "ENG",
+    "keyboardBottomValue": "US",
+    "systemAccentColor": "System accent color found",
+    "setName": "Set name",
+    "usernamePlaceholder": "Enter name",
+    "loadingName": "Retrieving name, please wait...",
+    "nextButton": "GO",
+    "dataSaveLocation": "Data saved here:",
+
+    "welcome": "Welcome",
+    "enterPassword": "Password",
+    "forgotPassword": "I forgot my password",
+    "connectionOptions": "Sign-in options"
+}

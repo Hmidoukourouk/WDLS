@@ -1,0 +1,19 @@
+{
+    "languageLabel": "go to folder /locales/yourLanguage.json to change",
+    "keyboardIconLabel": "Set keyboard layout icon label",
+    "keyboardTopPlaceholder": "Enter top icon (e.g., ENG)",
+    "keyboardBottomPlaceholder": "Enter bottom icon (e.g., US)",
+    "keyboardTopValue": "ENG",
+    "keyboardBottomValue": "US",
+    "systemAccentColor": "System accent color label",
+    "setName": "Set name label",
+    "usernamePlaceholder": "Enter name placeholder",
+    "loadingName": "Loading name message",
+    "nextButton": "GO",
+    "dataSaveLocation": "Data saved here label",
+
+    "welcome": "Go now",
+    "enterPassword": "folder /locales",
+    "forgotPassword": "create your json file or modify this one (yourLanguage.json)",
+    "connectionOptions": "if u create new one, go to setup.html to add it in selector"
+}

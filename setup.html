@@ -1,11 +1,10 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Définir les informations</title>
+    <title>Setup</title>
     <link rel="stylesheet" href="setupStyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,37 +12,52 @@
 </head>
 
 <body>
-    <div id="exitButton">EXIT</div>
+    <div id="exitButton">X</div>
     <div id="holder">
         <div class="setupContainer">
-            <p>Définir le nom</p>
+            <p data-translate-key="languageLabel">Language</p>
             <div class="marginV"></div>
-            <input type="text" id="usernameInput" placeholder="Entrez le nom">
+            <select id="languageSelector">
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="de">Deutsch</option>
+                <option value="yourLanguage" data-translate-key="yourLanguage">yourLanguage</option>
+            </select>
         </div>
-        <div id="waitname" class="loading valid">
-            Nom en cours de récupération, veuillez patienter un instant...
-        </div>
+
         <div class="setupContainer">
-            <p>Définir l'icône de la disposition du clavier</p>
+            <p data-translate-key="keyboardIconLabel">Définir l'icône de la disposition du clavier</p>
             <div class="marginV"></div>
-            <input type="text" id="keyboardTop" placeholder="Entrez celui du haut (ex: FRA)" value="FRA">
-            <input type="text" id="keyboardBottom" placeholder="Entrez celui du bas (ex: FR)" value="FR">
+            <input type="text" id="keyboardTop" placeholder="Entrez celui du haut (ex: FRA)" value="FRA"
+                data-translate-key="keyboardTopPlaceholder">
+            <input type="text" id="keyboardBottom" placeholder="Entrez celui du bas (ex: FR)" value="FR"
+                data-translate-key="keyboardBottomPlaceholder">
         </div>
+
         <div class="setupContainer">
-            <p>Couleur d'accentuation système</p>
+            <p data-translate-key="systemAccentColor">Couleur d'accentuation système trouvée</p>
             <div class="marginV"></div>
             <div id="sysCol"></div>
         </div>
-        <button id="nextBtn" class="nextBtnCol">Expertiser la zone</button>
 
         <div class="setupContainer">
-            <p>Sauvegarde des doux mots :</p>
+            <p data-translate-key="setName">Définir le nom</p>
             <div class="marginV"></div>
-            <div id="gangedebug"></div>
+            <input type="text" id="usernameInput" placeholder="Entrez le nom" data-translate-key="usernamePlaceholder">
         </div>
-        
-    </div>
+        <div id="waitname" class="loading valid" data-translate-key="loadingName">
+            Nom en cours de récupération, veuillez patienter un instant...
+        </div>
 
+        <button id="nextBtn" class="nextBtnCol" data-translate-key="nextButton">Expertiser la zone</button>
+        <div class="marginH"></div>
+        <div class="setupContainer bottomIdle">
+            <p data-translate-key="dataSaveLocation">Sauvegarde des données ici :</p>
+            <div class="marginV"></div>
+            <div id="filePath"></div>
+        </div>
+    </div>
     <script src="setup.js"></script>
 </body>
 

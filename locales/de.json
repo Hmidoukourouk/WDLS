@@ -1,0 +1,19 @@
+{
+    "languageLabel": "Sprache",
+    "keyboardIconLabel": "Tastaturlayout-Symbol festlegen",
+    "keyboardTopPlaceholder": "Oberes Symbol eingeben (z.B. DEU)",
+    "keyboardBottomPlaceholder": "Unteres Symbol eingeben (z.B. DE)",
+    "keyboardTopValue": "DEU",
+    "keyboardBottomValue": "DE",
+    "systemAccentColor": "Systemakzentfarbe gefunden",
+    "setName": "Name festlegen",
+    "usernamePlaceholder": "Name eingeben",
+    "loadingName": "Name wird abgerufen, bitte warten...",
+    "nextButton": "GO",
+    "dataSaveLocation": "Daten hier gespeichert:",
+
+    "welcome": "Willkommen",
+    "enterPassword": "Kennwort",
+    "forgotPassword": "Kennwort vergessen",
+    "connectionOptions": "Anmeldeoptionen"
+}

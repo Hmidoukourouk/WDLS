@@ -5,21 +5,19 @@ const fs = require('fs');
 const regedit = require('regedit');
 const { exec } = require('child_process');
 
+//flags pour savoir si on peu quitter ou pas encore
+let passSaved = false;
+let canQuit = false;
+
 // Chemin dynamique pour localiser le dossier vbs en mode production
 const vbsPath = path.join(process.resourcesPath, 'app', 'node_modules', 'regedit', 'vbs');
 regedit.setExternalVBSLocation(vbsPath);
 
-/*
-// Récupère le chemin d'origine passé en argument par le batch
-const originPath = process.argv[1] || app.getPath('userData'); // Utilise 'userData' par défaut si aucun argument n'est fourni
-// Emplacement du fichier JSON
-const filePath = path.join(originPath, 'userData.json');
-*/
+//chemin du json
 const filePath = path.join(path.dirname(app.getPath('exe')), 'userData.json');
+
 //#region get du nom
 let username;
-let passSaved = false;
-let canQuit = false;
 
 function getFullUserName(callback) {
   const command = `powershell -Command "Get-WmiObject -Class Win32_UserAccount -Filter \\"Name='$env:USERNAME'\\" | Select-Object -ExpandProperty FullName"`;
@@ -37,12 +35,10 @@ function getFullUserName(callback) {
   });
 }
 
-// Utilisation de la fonction
 getFullUserName((fullName) => {
   console.log(`Nom complet de l'utilisateur Windows : ${fullName}`);
   username = fullName;
-  mainWindow.webContents.send('name', username); // Envoie à renderer.html
-
+  mainWindow.webContents.send('name', username); // Envoie à setup.js
 });
 //#endregion
 
@@ -78,8 +74,6 @@ function argbToRgb(argb) {
 
 //#endregion
 
-let mainWindow;
-
 //#region récupére l'immgge de profil wd
 let wdProfilePicture;
 
@@ -95,12 +89,13 @@ if (process.platform === 'win32') {
       imageFile = files.find(file => file.endsWith('.accountpicture-ms'));
       if (imageFile) {
         const filePath = path.join(accountPicturesPath, imageFile);
+        //https://github.com/xan105/node-accountpicture-ms-extractor
+        //merci-amen
         import('accountpicture-ms-extractor').then(({ default: extract }) => {
           extract(filePath)
             .then(({ highres }) => {
               wdProfilePicture = highres.base64();
-              console.log("extrait de accountpicture");
-              //console.log(wdProfilePicture);
+              console.log("accountpicture ok");
             })
             .catch(error => {
               console.error('Erreur lors de l\'extraction de l\'image :', error);
@@ -113,13 +108,32 @@ if (process.platform === 'win32') {
   }
 }
 //#endregion
+
+//#region get connection type
+const interfaces = os.networkInterfaces();
+let wifi = false;
+
+for (const name in interfaces) {
+  const iface = interfaces[name];
+  iface.forEach(details => {
+    if (details.family === 'IPv4' && details.internal === false && /wi-fi|wireless/i.test(name)) {
+      wifi = true;
+    }
+  });
+}
+
+console.log("connection mode ", wifi ? "wifi" : "ethernet");
+//#endregion
+
+let mainWindow;
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    transparent: true, // Rend la fenêtre transparente
-    frame: false,      // Supprime les bordures de fenêtre
-    resizable: false,  // Empêche le redimensionnement pour éviter les effets visuels indésirables
+    transparent: true,
+    frame: false,
+    resizable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -134,6 +148,10 @@ function createWindow() {
     mainWindow.webContents.openDevTools();
   }
 
+  //choppe la langue
+  const systemLanguage = app.getLocale();
+  console.log("Langue système :", systemLanguage);
+
   // Passe en plein écran et masque la barre de menu lorsqu'on charge `index.html`
   mainWindow.webContents.on('did-finish-load', () => {
     if (mainWindow.webContents.getURL().endsWith('index.html')) {
@@ -141,35 +159,22 @@ function createWindow() {
       mainWindow.setMenuBarVisibility(false);
     } else {
       mainWindow.webContents.send('color', color);//pour voir la sys color
-      mainWindow.webContents.send('debug', filePath);//debug
+      mainWindow.webContents.send('filePath', filePath);//afficher le chemin de sortie
+      mainWindow.webContents.send('lang', systemLanguage);//envoyer la langue systhème
     }
   });
 }
 
 app.whenReady().then(createWindow);
 
+//bouton GO / Expertiser la zone
 ipcMain.on('set-data', (event, data) => {
   mainWindow.loadFile('index.html'); // Charge la page principale
 
-  const interfaces = os.networkInterfaces();
-  data.isWifi = false;
-
-  for (const name in interfaces) {
-    const iface = interfaces[name];
-    iface.forEach(details => {
-      if (details.family === 'IPv4' && details.internal === false && /wi-fi|wireless/i.test(name)) {
-        data.isWifi = true;
-      }
-    });
-  }
-
+  data.isWifi = wifi;
   data.profileImagebase64 = wdProfilePicture;
   data.syscolor = color;
-
-  if (!data.username) data.username = os.userInfo().username;
-  data.language = process.env.LANG || process.env.LANGUAGE || process.env.LC_ALL || process.env.LC_MESSAGES || process.env.UILanguage || 'Langue inconnue';
-
-  //console.log(data);
+  if (!data.username) data.username = os.userInfo().username;//chopper un username vite fait si on a pas un truc
 
   mainWindow.webContents.once('did-finish-load', () => {
     mainWindow.webContents.send('set-data', data); // Envoie à renderer.html
