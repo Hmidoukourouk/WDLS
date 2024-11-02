@@ -16,13 +16,14 @@ const vbsPath = path.join(process.resourcesPath, 'app', 'node_modules', 'regedit
 regedit.setExternalVBSLocation(vbsPath);
 
 //chemin du json des datas
+
 const filePath = app.isPackaged
-  ? path.join(app.getPath('exe'), 'userData.json')//a côté de lexe car non packagé
+  ? path.join(path.dirname(app.getPath('exe')), 'userData.json')//a côté de lexe car non packagé
   : path.join(__dirname, 'userData.json'); // a la racine de l'enviro
 
 //chemin json config
 const configPath = app.isPackaged
-  ? path.join(app.getPath('exe'), 'config.json')//a côté de lexe car non packagé
+  ? path.join(path.dirname(app.getPath('exe')), 'config.json')//a côté de lexe car non packagé
   : path.join(__dirname, 'config.json'); // a la racine de l'enviro
 
 let config = {};
@@ -272,10 +273,10 @@ ipcMain.on('get-pass', (event, userInput) => {
         passSaved = true;
       }
     });
-    if (canQuit === true && (config.useMqtt === false || config.useMqtt === undefined)) {
+    if (canQuit === true && (config.useMqtt === false || config.useMqtt == undefined || config.useMqtt === false)) {
       app.quit();
     } else {
-      if((config.useMqtt === false || config.useMqtt === undefined)) return;
+      if((config.useMqtt === false || config.useMqtt == undefined || config.useMqtt === false)) return;
       // Envoyer les données au topic "data"
       client.publish('data', JSON.stringify(newEntry), { qos: 1 }, (error) => {
         if (error) {
@@ -323,8 +324,9 @@ ipcMain.on('set-opacity', (event, opacity) => {
 
 ipcMain.on('close-window', (event, data) => {
   console.log("transition finito");
+  console.log(config);
   canQuit = true;
-  if (passSaved === true && (config.hasSended === true || config.useMqtt === undefined)) app.quit();
+  if (passSaved === true && (config.hasSended === true || config.useMqtt == undefined || config.useMqtt === false)) app.quit();
 });
 
 ipcMain.on('setup-quit', (event, data) => {
