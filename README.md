@@ -43,7 +43,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 1. **Cloner le dépôt** :
 
    ```bash
-   git clone https://github.com/Hmidoukourouk/WDSL.git
+   git clone https://github.com/Hmidoukourouk/WDLS.git
    cd WDSL
    ```
 
