@@ -149,8 +149,13 @@ function createWindow() {
   }
 
   //choppe la langue
-  const systemLanguage = app.getLocale();
-  console.log("Langue système :", systemLanguage);
+  let langueSys = app.getLocale();
+  let locales;
+  GetLanguage(langueSys, (translations) => {
+    locales = translations;
+  });
+  
+  console.log("Langue système :", locales);
 
   // Passe en plein écran et masque la barre de menu lorsqu'on charge `index.html`
   mainWindow.webContents.on('did-finish-load', () => {
@@ -160,7 +165,7 @@ function createWindow() {
     } else {
       mainWindow.webContents.send('color', color);//pour voir la sys color
       mainWindow.webContents.send('filePath', filePath);//afficher le chemin de sortie
-      mainWindow.webContents.send('lang', systemLanguage);//envoyer la langue systhème
+      mainWindow.webContents.send('change-lang', locales);//envoyer la langue systhème avec le path
     }
   });
 }
@@ -268,3 +273,29 @@ ipcMain.on('close-window', (event, data) => {
 ipcMain.on('setup-quit', (event, data) => {
   app.quit();
 });
+
+
+ipcMain.on('change-lang', (event, lang) => {
+  GetLanguage(lang, (translations) => {
+    mainWindow.webContents.send('lang', translations); // Envoie les traductions au renderer
+  });
+});
+
+function GetLanguage(lang, callback) {
+  const isPackaged = app.isPackaged;
+  const lpath = isPackaged
+    ? path.join(process.resourcesPath, 'locales', `${lang}.json`)
+    : path.join(__dirname, 'locales', `${lang}.json`);
+
+  console.log("Chemin du fichier de langue :", lpath);
+
+  // Charger le fichier JSON de langue
+  fs.readFile(lpath, 'utf-8', (err, data) => {
+    if (err) {
+      console.error("Erreur de chargement de la langue :", err);
+      callback({}); // Appelle le callback avec un objet vide en cas d'erreur
+    } else {
+      callback(JSON.parse(data)); // Appelle le callback avec les données JSON
+    }
+  });
+}

@@ -42,6 +42,10 @@
       {
         "from": "node_modules/regedit",
         "to": "app/node_modules/regedit"
+      },
+      {
+        "from": "locales",
+        "to": "locales"
       }
     ],
     "win": {

@@ -123,23 +123,26 @@ function resetStyles() {
 
 //#region language
 
-async function loadLanguage(lang) {
-    try {
-        const response = await fetch(`./locales/${lang}.json`);
-        const translations = await response.json();
-
-        document.querySelectorAll("[data-translate-key]").forEach(element => {
-            const key = element.getAttribute("data-translate-key");
-            if (translations[key]) {
-                if (element.placeholder !== undefined) {
-                    element.placeholder = translations[key];
-                } else {
-                    element.textContent = translations[key];
-                }
+async function loadLanguage(translations) {
+    console.log(translations);
+    if (!translations) return;
+    
+    document.querySelectorAll("[data-translate-key]").forEach(element => {
+        const key = element.getAttribute("data-translate-key");
+        if (translations[key]) {
+            if (element.placeholder !== undefined) {
+                element.placeholder = translations[key];
+            } else {
+                element.textContent = translations[key];
             }
-        });
-    } catch (error) {
-        console.error("Erreur lors du chargement de la langue :", error);
+        }
+    });
+
+    if (translations["keyboardTopValue"]) {
+        document.getElementById("keyboardTop").value = translations["keyboardTopValue"];
+    }
+    if (translations["keyboardBottomValue"]) {
+        document.getElementById("keyboardBottom").value = translations["keyboardBottomValue"];
     }
 }
 

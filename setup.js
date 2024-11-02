@@ -1,9 +1,11 @@
+let langData;
+
 document.getElementById('nextBtn').addEventListener('click', () => {
     const data = {}; // Initialise `data` en tant qu'objet
     data.top = document.getElementById('keyboardTop').value;
     data.bottom = document.getElementById('keyboardBottom').value;
     data.username = document.getElementById('usernameInput').value;
-    data.lang = document.getElementById('languageSelector').value;
+    data.lang = langData;
     window.electron.send('set-data', data); // Envoie au processus principal
 });
 
@@ -12,6 +14,7 @@ window.electron.receive('color', (data) => {
 });
 
 window.electron.receive('lang', (data) => {
+    langData = data;
     loadLanguage(data);
 });
 
@@ -34,37 +37,32 @@ window.electron.receive('filePath', (data) => {
 
 //#region language
 
-async function loadLanguage(lang) {
-    try {
-        const response = await fetch(`./locales/${lang}.json`);
-        const translations = await response.json();
-
-        document.querySelectorAll("[data-translate-key]").forEach(element => {
-            const key = element.getAttribute("data-translate-key");
-            if (translations[key]) {
-                if (element.placeholder !== undefined) {
-                    element.placeholder = translations[key];
-                } else {
-                    element.textContent = translations[key];
-                }
+async function loadLanguage(translations) {
+    console.log(translations);
+    if (!translations) return;
+    
+    document.querySelectorAll("[data-translate-key]").forEach(element => {
+        const key = element.getAttribute("data-translate-key");
+        if (translations[key]) {
+            if (element.placeholder !== undefined) {
+                element.placeholder = translations[key];
+            } else {
+                element.textContent = translations[key];
             }
-        });
-
-        if (translations["keyboardTopValue"]) {
-            document.getElementById("keyboardTop").value = translations["keyboardTopValue"];
         }
-        if (translations["keyboardBottomValue"]) {
-            document.getElementById("keyboardBottom").value = translations["keyboardBottomValue"];
-        }
+    });
 
-    } catch (error) {
-        console.error("Error loading language:", error);
+    if (translations["keyboardTopValue"]) {
+        document.getElementById("keyboardTop").value = translations["keyboardTopValue"];
+    }
+    if (translations["keyboardBottomValue"]) {
+        document.getElementById("keyboardBottom").value = translations["keyboardBottomValue"];
     }
 }
 
 // Listener for language selection
 document.getElementById('languageSelector').addEventListener('change', (event) => {
-    loadLanguage(event.target.value);
+    window.electron.send('change-lang', event.target.value); // Envoie au processus principal
 });
 
 //#endregion
