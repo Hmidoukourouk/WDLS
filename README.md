@@ -54,17 +54,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
    ```
 Bravo
 
-## Lancer l'application
-
-Pour lancer l'application en mode de développement (unpacked), utilisez la commande suivante :
-
-```bash
-npm start
-```
-
-Cela démarrera l'application avec les DevTools ouverts pour faciliter le débogage.
-
-## Build de Production
+## Build
 
 Pour créer un build de production, utilisez **electron-builder**.
 
@@ -87,7 +77,7 @@ ou
    ```bash
    npm start
    ```
-si vous avez tout le git
+Cela démarrera l'application avec les DevTools ouverts.
 
 ## Overview des scripts du projet
 
