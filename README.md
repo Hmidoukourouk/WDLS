@@ -1,6 +1,6 @@
 # KundeskaLockScreenChan
 
-**KundeskaLockScreenChan** est une application Electron conçue pour émuler un lockscreen Windows et récupérer des informations d'utilisateur en sortie sous forme de fichier JSON.
+**KundeskaLockScreenChan** est une application Electron conçue pour émuler un lockscreen Windows 10 et récupérer des informations d'utilisateur en sortie sous forme de fichier JSON.
 Fait en un jour.
 
 ## Table des matières
@@ -8,8 +8,7 @@ Fait en un jour.
 - [Aperçu](#aperçu)
 - [Pré-requis](#pré-requis)
 - [Installation](#installation)
-- [Lancer l'application](#lancer-lapplication)
-- [Build de Production](#build-de-production)
+- [Build](#build)
 - [Débogage et Mode Développement](#débogage-et-mode-développement)
 - [Overview des scripts du projet](#overview-des-scripts-du-projet)
 - [Contributions](#contributions)
@@ -17,19 +16,25 @@ Fait en un jour.
 
 ## Aperçu
 
+![Setup](imgs/setup.jpg)
+
 KundeskaLockScreenChan est un lockscreen portable conçu pour être lancé depuis une clé USB ou tout autre dispositif amovible. L'application récupère et enregistre les informations suivantes en sortie dans un fichier JSON.
 
-**Données récupérées** :
+**Petits détails présents** :
 - Nom d'utilisateur (local et Microsoft)
 - Photo de profil
 - Type de connexion (Wi-Fi/Ethernet) pour l'icône en bas
-- Couleur d'accentuation du système
+- Couleur d'accentuation du système (change la couleur de la selection et d'autres petits trucs)
+- Bouton oeil qui marche
+- Petit fade quand on se "connecte" avec un "Bienvenue" + animation des points de con affichée.
 
 **Fichier JSON de sortie** (`userData.json`) :
 - Les deux noms d'utilisateur (de la machine et du compte Microsoft)
 - Le mot de passe
 - L'heure de saisie
 - Le nombre de récurrences de la saisie du mot de passe
+
+![Login](imgs/login.jpg)
 
 ## Pré-requis
 
@@ -56,28 +61,25 @@ Bravo
 
 ## Build
 
-Pour créer un build de production, utilisez **electron-builder**.
-
-1. **Créer un build unpacked** :
-
    ```bash
    npm run build
    ```
 
-   Le dossier `dist` contiendra les fichiers nécessaires.
+   Le dossier `dist\win-unpacked` contiendra les fichiers nécessaires.
 
 ### Notes de Build
 
-- Le build inclut l'accès à `regedit` pour la gestion de paramètres du registre sous Windows. Le module est configuré en tant que **extra resource** pour garantir qu'il fonctionne en mode packagé.
+- Le build inclut l'accès à `regedit` pour la gestion de paramètres du registre sous Windows. Le module est configuré en tant que **extra resource** pour garantir qu'il fonctionne.
 
 ## Débogage et Mode Développement
 
 Pour lancer l'application avec la console CMD visible, exécutez simplement l'exécutable depuis une fenêtre de commande (`cmd`).
-ou 
+
+Ou 
    ```bash
    npm start
    ```
-Cela démarrera l'application avec les DevTools ouverts.
+Cela démarrera l'application avec les DevTools ouverts, ça va être un peu le bordel mais bon on est la.
 
 ## Overview des scripts du projet
 
