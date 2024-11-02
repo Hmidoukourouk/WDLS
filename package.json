@@ -1,0 +1,60 @@
+{
+  "name": "wdls",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder",
+    "build-dev": "electron-builder --dir"
+  },
+  "keywords": [],
+  "author": "Expert",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^33.0.2",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "accountpicture-ms-extractor": "^2.1.1",
+    "regedit": "^5.1.3",
+    "sharp": "^0.33.5",
+    "tslib": "^2.8.1"
+  },
+  "build": {
+    "appId": "com.bingchilling.des",
+    "productName": "KundeskaLockScreenChan",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.js",
+      "index.html",
+      "imgs/montains.jpg",
+      "preload.js",
+      "renderer.js",
+      "setup.html",
+      "setup.js",
+      "setupStyle.css",
+      "style.css",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/regedit",
+        "to": "app/node_modules/regedit"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,403 @@
+:root {
+    --border-color: #ffffff87;
+    --border-width: 2px;
+    --button-color: #ffffff3b;
+    --button-color-hover: #8989895e;
+    --button-color-active: #5050505e;
+    --smallTxt-color: rgb(213, 213, 213);
+    --smallTxt-color-hover: rgb(255 255 255 / 32%);
+    --passheight: 33px;
+    --userImgSize: 200px;
+    --eye-color : #3f3f3f;
+    --backroungActiveColor : rgba(0, 0, 0, 0.471);
+    --systemColor: #357EC6;
+    --transitionDuration : 0.2s;
+
+/*__________________*/
+    --wheelSize: 30px;
+    --circleSize: 4px;
+    --primary-color: #ffffff;
+    --secondary-color: #000;
+    --animation-duration: 3.5s;
+    --delay-in-between: calc(var(--animation-duration) / 15);
+}
+
+::selection {
+    background-color: var(--systemColor);
+    color: white;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.roboto {
+    font-family: "Roboto", serif;
+    font-weight: lighter;
+    font-style: normal;
+}
+
+#background {
+    user-select: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+#overlay {
+    user-select: none;
+    pointer-events: none;
+
+    width: 170px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition-duration: var(--transitionDuration);
+    align-items: center;
+    position: fixed; /* Fixe l'élément par rapport à la fenêtre */
+    top: 50%; /* Positionne au milieu vertical */
+    left: 50%; /* Positionne au milieu horizontal */
+    transform: translate(-50%, -50%); /* Centre l'élément */
+    z-index: 1000; /* Place l'élément au-dessus des autres */
+    color: white; /* Couleur du texte */
+}
+#Bienvenue{
+    font-family: "Roboto", serif;
+    font-size: 25px;
+    font-weight: normal;
+}
+
+
+#background::before {
+    user-select: none;
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background-image: url('imgs/montains.jpg');
+    /* Remplace par ton image */
+    background-size: cover;
+    background-position: center;
+    filter: blur(35px) brightness(0.8);
+    pointer-events: none;
+    /* Désactive les interactions sur l'image */
+}
+
+#username {
+    user-select: none;
+    font-size: 3em;
+    justify-content: center;
+    display: flex;
+}
+
+#nextBtn {
+    width: var(--passheight);
+    height: var(--passheight);
+    border: 0px;
+    background-color: var(--button-color);
+    /* Couleur de fond gris clair */
+    color: #000;
+    cursor: pointer;
+}
+
+#nextBtn:hover {
+    background-color: var(--button-color-hover);
+    /* Change la couleur de fond au survol */
+}
+
+#nextBtn:active {
+    background-color: var(--button-color-active);
+    /* Couleur un peu plus sombre au clic */
+}
+
+#arrowSvg {
+    align-items: center;
+    width: 75%;
+    height: 100%;
+}
+
+#eyeButton {
+    width: var(--passheight);
+    height: var(--passheight);
+    border: 0px;
+}
+
+.eyeButtonBasicBackground {
+    background-color: white;
+}
+
+.eyeButtonActive {
+    background-color: white;
+    cursor: pointer;
+}
+
+.eyeButtonActive #eyeButtonIconFill {
+    fill: var(--eye-color);
+    /* Fond légèrement coloré au survol */
+}
+
+.eyeButtonActive #eyeButtonIconPath {
+    stroke: var(--eye-color);
+    /* Fond légèrement coloré au survol */
+}
+
+.eyeButtonActive:hover #eyeButtonIconFill {
+    fill: var(--systemColor);
+    /* Fond légèrement coloré au survol */
+}
+
+.eyeButtonActive:hover #eyeButtonIconPath {
+    stroke: var(--systemColor);
+    /* Fond légèrement coloré au survol */
+}
+
+.eyeButtonActive:active {
+    background-color: var(--systemColor);
+    /* Fond légèrement coloré au survol */
+}
+
+.eyeButtonActive:active #eyeButtonIconFill {
+    fill: white;
+    /* Fond légèrement coloré au survol */
+}
+
+.eyeButtonActive:active #eyeButtonIconPath {
+    stroke: white;
+    /* Fond légèrement coloré au survol */
+}
+
+
+
+#eyeButtonIcon {
+    align-items: center;
+    width: 75%;
+    height: 100%;
+}
+
+#userInput {
+    font-size: 1.5em;
+    width: 245px;
+    border: 0px;
+    height: var(--passheight);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    padding-left: 8px;
+    outline: none;
+}
+
+#userInput::placeholder {
+    user-select: none;
+    color: #8f8f8f;
+    opacity: 1;
+    transform: scale(0.6);
+    transform-origin: left;
+}
+
+#centreurmdp {
+    border: var(--border-width) solid var(--border-color);
+    /* Utilise les variables pour la bordure */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#centreurmdp:hover {
+    border: var(--border-width) solid white;
+}
+
+#centreur {
+    transition-duration: var(--transitionDuration);
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#img {
+    width: 100%;
+    height: 100%;
+    /*background-image: url("pic_trulli.jpg");*/
+    background-size: cover; /* Redimensionne l'image pour remplir le conteneur tout en respectant l'aspect ratio */
+    background-position: center; /* Centre l'image dans le conteneur */
+    background-repeat: no-repeat; /* Évite la répétition de l'image */
+}
+
+#imgContainer {
+    user-select: none;
+    width: var(--userImgSize); /* Taille du conteneur définie par la variable CSS */
+    height: var(--userImgSize); /* Taille du conteneur définie par la variable CSS */
+    border-radius: 50%; /* Arrondit le conteneur en cercle */
+    overflow: hidden; /* Cache les parties qui débordent */
+    pointer-events: none; /* Désactive les interactions */
+}
+
+
+.smallTxt {
+    user-select: none;
+    font-size: 1em;
+    color: var(--smallTxt-color);
+    cursor: pointer;
+}
+
+.smallTxt:hover {
+    color: var(--smallTxt-color-hover);
+}
+
+#separateurimgtext {
+    height: 1em;
+}
+
+#separateurtextpass {
+    height: 2em;
+}
+
+#separateurUnderPass {
+    height: 1.2em;
+}
+
+#separateurUnderText {
+    height: 2em;
+}
+
+#botomContainer {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    align-items: flex-end;
+    margin: 20px;
+}
+
+.botomItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    user-select: none;
+}
+
+.botomItem:hover {
+    background-color: rgba(255, 255, 255, 0.269);
+}
+
+.verticalFlex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#keyboardLangbold {
+    user-select: none;
+    font-weight: bold;
+}
+
+#keyboardLang {
+    font-weight: normal;
+}
+
+
+/*__________________________________________________*/
+
+.loading {
+    position: relative;
+    height: var(--wheelSize);
+    width: var(--wheelSize);
+}
+
+.loading-circle {
+    height: var(--wheelSize);
+    width: var(--wheelSize);
+    /* background-color: black; */
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    animation: rotation var(--animation-duration) infinite;
+
+}
+
+.loading-circle::after {
+    content: "";
+    background-color: var(--primary-color);
+    height: var(--circleSize);
+    width: var(--circleSize);
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border-radius: 50%;
+
+}
+
+@keyframes rotation {
+
+    0% {
+        transform: rotate(45deg);
+        opacity: 1;
+        animation-timing-function: ease-out;
+    }
+
+    7%{
+        transform: rotate(165deg);
+        animation-timing-function: linear;
+    }
+
+    30% {
+        transform: rotate(275deg);
+        animation-timing-function: ease-in-out;
+    }
+
+    39% {
+        transform: rotate(500deg);
+        animation-timing-function: linear;
+    }
+    70% {
+        transform: rotate(635deg);
+        opacity: 1;
+        animation-timing-function: ease-in;
+    }
+    75% {
+        transform: rotate(765deg);
+        animation-timing-function: ease-out;
+    }
+    76% {
+        transform: rotate(765deg);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(765deg);
+        opacity: 0;
+    }
+    
+}
+
+.circle-2 {
+    animation-delay: calc(var(--delay-in-between) * 1);
+}
+.circle-3 {
+    animation-delay: calc(var(--delay-in-between) * 2);
+}
+.circle-4 {
+    animation-delay: calc(var(--delay-in-between) * 3);
+}
+.circle-5 {
+    animation-delay: calc(var(--delay-in-between) * 4);
+}

@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Définir les informations</title>
+    <link rel="stylesheet" href="setupStyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="exitButton">EXIT</div>
+    <div id="holder">
+        <div class="setupContainer">
+            <p>Définir le nom</p>
+            <div class="marginV"></div>
+            <input type="text" id="usernameInput" placeholder="Entrez le nom">
+        </div>
+        <div id="waitname" class="loading valid">
+            Nom en cours de récupération, veuillez patienter un instant...
+        </div>
+        <div class="setupContainer">
+            <p>Définir l'icône de la disposition du clavier</p>
+            <div class="marginV"></div>
+            <input type="text" id="keyboardTop" placeholder="Entrez celui du haut (ex: FRA)" value="FRA">
+            <input type="text" id="keyboardBottom" placeholder="Entrez celui du bas (ex: FR)" value="FR">
+        </div>
+        <div class="setupContainer">
+            <p>Couleur d'accentuation système</p>
+            <div class="marginV"></div>
+            <div id="sysCol"></div>
+        </div>
+        <button id="nextBtn" class="nextBtnCol">Expertiser la zone</button>
+
+        <div class="setupContainer">
+            <p>Sauvegarde des doux mots :</p>
+            <div class="marginV"></div>
+            <div id="gangedebug"></div>
+        </div>
+        
+    </div>
+
+    <script src="setup.js"></script>
+</body>
+
+</html>
