@@ -6,6 +6,7 @@ Fait en un jour.
 ## Table des matières
 
 - [Aperçu](#aperçu)
+- [Quick-start](#quick-start)
 - [Pré-requis](#pré-requis)
 - [Installation](#installation)
 - [Build](#build)
@@ -35,6 +36,10 @@ KundeskaLockScreenChan est un lockscreen portable conçu pour être lancé depui
 - Le nombre de récurrences de la saisie du mot de passe
 
 ![Login](imgs/login.jpg)
+
+## Quick start
+
+[Télécharger une build toute cuite](https://github.com/Hmidoukourouk/WDLS/releases/tag/builds)
 
 ## Pré-requis
 
