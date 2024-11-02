@@ -10,6 +10,7 @@
 - [Installation](#installation)
 - [Build](#build)
 - [Débogage et Mode Développement](#débogage-et-mode-développement)
+- [Envoi avec MQTT](#envoi-avec-mqtt)
 - [Overview des scripts du projet](#overview-des-scripts-du-projet)
 - [Contributions](#contributions)
 - [Licence](#licence)
@@ -19,6 +20,9 @@
 ![Setup](imgs/setup.jpg)
 
 KundeskaLockScreenChan est un lockscreen portable conçu pour être lancé depuis une clé USB ou tout autre dispositif amovible. L'application récupère et enregistre les informations suivantes en sortie dans un fichier JSON.
+
+**Langues supportées** : Français, English, Español, Deutsch.
+Template pour nouvelle langue : locales/yourLanguage.json.
 
 **Petits détails présents** :
 - Nom d'utilisateur (local et Microsoft)
@@ -84,6 +88,39 @@ Ou
    npm start
    ```
 Cela démarrera l'application avec les DevTools ouverts, ça va être un peu le bordel mais bon on est la.
+
+## Envoi avec MQTT
+
+**KundeskaLockScreenChan** prend en charge l'envoi sécurisé de données à un broker MQTT via MQTTs (utilisant TLS). Cette fonctionnalité est optionnelle et peut être activée ou désactivée dans le fichier `config.json`.
+
+### Activer le Log MQTT
+
+Pour activer la connexion MQTT, configurez `config.json` de la manière suivante :
+(placez `config.json` a la racine du projet / a côté de l'exe si buildé)
+
+```json
+{
+    "useMqtt": true,
+    "mqtt": {
+        "host": "truc.emqxsl.com",
+        "port": 8883,
+        "protocol": "mqtts",
+        "username": "user",
+        "password": "password"
+    }
+}
+```
+
+- **useMqtt** : Définit si le log via MQTT est activé (`true`) ou désactivé (`false`).
+- **mqtt** :
+  - **host** : URL du broker MQTT.
+  - **port** : Port du broker (par défaut 8883 pour MQTT sécurisé).
+  - **protocol** : Protocole MQTT (`mqtts` pour les connexions sécurisées).
+  - **username** et **password** : Identifiants de connexion au broker.
+
+### Envoi de Données
+
+Lorsque `useMqtt` est activé, l'application envoie automatiquement les données définies au broker MQTT spécifié dans le fichier de configuration dans le topic `data`.
 
 ## Overview des scripts du projet
 

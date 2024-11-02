@@ -316,12 +316,12 @@ body {
     align-items: center;
 }
 
-#keyboardLangbold {
+#keyboardTop {
     user-select: none;
     font-weight: bold;
 }
 
-#keyboardLang {
+#keyboardBottom {
     font-weight: normal;
 }
 

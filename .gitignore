@@ -128,3 +128,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# eviter de se faire voler les clés EMQX et ses infos...
+config.json
+userData.json

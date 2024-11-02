@@ -137,13 +137,6 @@ async function loadLanguage(translations) {
             }
         }
     });
-
-    if (translations["keyboardTopValue"]) {
-        document.getElementById("keyboardTop").value = translations["keyboardTopValue"];
-    }
-    if (translations["keyboardBottomValue"]) {
-        document.getElementById("keyboardBottom").value = translations["keyboardBottomValue"];
-    }
 }
 
 //#endregion
@@ -155,10 +148,10 @@ window.electron.receive('set-data', (data) => {
         document.getElementById('username').innerHTML = `${data.username}`;
     }
     if (data.top) {
-        document.getElementById('keyboardLangbold').innerHTML = `${data.top}`;
+        document.getElementById('keyboardTop').innerHTML = `${data.top}`;
     }
     if (data.bottom) {
-        document.getElementById('keyboardLang').innerHTML = `${data.bottom}`;
+        document.getElementById('keyboardBottom').innerHTML = `${data.bottom}`;
     }
     if (data.isWifi === true) {
         document.getElementById('connectionCable').style.display = "none";
@@ -179,4 +172,3 @@ window.electron.receive('set-data', (data) => {
 });
 
 //#endregion
-
